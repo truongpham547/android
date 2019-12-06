@@ -6,6 +6,9 @@
         require_once 'connect.php';
 
         $sql="DELETE FROM review_table WHERE id='$idreview'";
+        $name_hinhanh=$idreview.'.jpg';
+        $link='hinhanh/'.$name_hinhanh;
+        unlink($link);
         if($conn->query($sql)===TRUE)
         {
             $result['success']='1';
