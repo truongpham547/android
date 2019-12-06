@@ -1,5 +1,6 @@
 <?php
     include 'connect.php';
+    require('jwt.php');
     if($_SERVER['REQUEST_METHOD']=='POST')
     {
         $username=$_POST['username'];
@@ -18,9 +19,10 @@
             $info['ngaysinh']=$row['ngaysinh'];
             $info['sdt']=$row['sdt'];
             $info['ava']=$row['ava'];
-
             array_push($result['info'],$info);
             $result['success']="1";
+            $token = JWT::encode($username, "truong pham");
+            $result['token']=$token;
         } else $result['success']="0";
         echo json_encode($result);
     }
