@@ -15,8 +15,8 @@
         $row=mysqli_fetch_assoc($response);
         if($row)
         {
-            $sql="DELETE FROM rate_table WHERE idreview='$idreview'";
-            $response=$conn->query($sql);
+            $sql1="DELETE FROM rate_table WHERE idreview='$idreview'";
+            $conn->query($sql1);
             $sql="DELETE FROM review_table WHERE id='$idreview'";
             $name_hinhanh=$idreview.'.jpg';
             $link='hinhanh/'.$name_hinhanh;
