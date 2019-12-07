@@ -16,7 +16,8 @@
         {
             $username=$_POST['username'];
         $idreview=$_POST['idreview'];
-        $isdel=$_POST['delete'];
+        if(isset($_POST['delete']))
+            $isdel=$_POST['delete'];
         $ngayluu=date('Y-m-d H:i:s');
         require_once 'connect.php';
         
