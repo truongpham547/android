@@ -1,9 +1,20 @@
 <?php
     include 'connect.php';
+    require('jwt.php');
+    require('header.php');
+    $token=getBearerToken();
     date_default_timezone_set('Asia/Ho_Chi_Minh');
-    if($_SERVER['REQUEST_METHOD']=='POST')
+    if($_SERVER['REQUEST_METHOD']=='POST'&&$token!=null)
     {
-        $username=$_POST['username'];
+        try{
+            $auth=JWT::decode($token, "truong pham", true);
+        } catch(Exception $e){}
+        $sql="SELECT* FROM user_table WHERE username='$auth'";
+        $response=  $response=$conn->query($sql);;
+        $row=mysqli_fetch_assoc($response);
+        if($row)
+        {
+            $username=$_POST['username'];
         $idreview=$_POST['idreview'];
         $isdel=$_POST['delete'];
         $ngayluu=date('Y-m-d H:i:s');
@@ -43,5 +54,16 @@
                 mysqli_close($conn);
             }
         }
+        }
+        else{
+            $result['success']='0';
+            echo json_encode($result);
+            mysqli_close($conn);
+        }
+        
+    }
+    else{
+        $result['success']='0';
+        echo json_encode($result);
     }
 ?>

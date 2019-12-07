@@ -1,6 +1,8 @@
 <?php
 	include "connect.php";
-	
+	require('jwt.php');
+    require('header.php');
+    $token=getBearerToken();
 	class review{
 		function review($id,$username,$ngaydang,$tieude,$noidung,$diachi,$hinhanh,$rating)
 		{
@@ -15,10 +17,18 @@
 		}
 	}
 	
-	if($_SERVER['REQUEST_METHOD']=='GET')
+	if($_SERVER['REQUEST_METHOD']=='GET'&&$token!=null)
     {
 		require_once 'connect.php';
-		if(isset($_GET['username'])) 
+		try{
+            $auth=JWT::decode($token, "truong pham", true);
+        } catch(Exception $e){}
+        $sql="SELECT* FROM user_table WHERE username='$auth'";
+        $response=  $response=$conn->query($sql);;
+        $row=mysqli_fetch_assoc($response);
+        if($row)
+        {
+            if(isset($_GET['username'])) 
 		{
 			$username=$_GET['username'];
 
@@ -62,7 +72,15 @@
 			}
 			echo json_encode($arrreview);
 		}
-	   
+        }
+        else{
+            $result['success']='0';
+            echo json_encode($result);
+            mysqli_close($conn);
+        }
+	} else{
+        $result['success']='0';
+		echo json_encode($result);
 	}
 	
 ?>
