@@ -15,12 +15,14 @@
         $row=mysqli_fetch_assoc($response);
         if($row)
         {
-            $sql1="DELETE FROM rate_table WHERE idreview='$idreview'";
-            $conn->query($sql1);
-            $sql="DELETE FROM review_table WHERE id='$idreview'";
+            $sql="DELETE FROM rate_table WHERE idreview='$idreview'";
+            $conn->query($sql);
+            $sql="DELETE FROM save_table WHERE idreview='$idreview'";
+            $conn->query($sql);
             $name_hinhanh=$idreview.'.jpg';
             $link='hinhanh/'.$name_hinhanh;
             unlink($link);
+            $sql="DELETE FROM review_table WHERE id='$idreview'";
             if($conn->query($sql)===TRUE)
             {
                 $result['success']='1';
