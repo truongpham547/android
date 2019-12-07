@@ -1,16 +1,19 @@
 <?php
     include 'connect.php';
     require('jwt.php');
-    if($_SERVER['REQUEST_METHOD']=='POST')
+    require('header.php');
+    $token=getBearerToken();
+    if($_SERVER['REQUEST_METHOD']=='POST'&&$token!=null)
     {
         require_once 'connect.php';
         $idreview=$_POST['idreview'];
-        $username=$_POST['username'];
-        $token=$_POST['token'];
         try{
             $auth=JWT::decode($token, "truong pham", true);
         } catch(Exception $e){}
-        if($auth==$username)
+        $sql="SELECT* FROM user_table WHERE username='$auth'";
+        $response=$conn->query($sql);
+        $row=mysqli_fetch_assoc($response);
+        if($row)
         {
             $sql="DELETE FROM review_table WHERE id='$idreview'";
             $name_hinhanh=$idreview.'.jpg';
@@ -33,5 +36,8 @@
             echo json_encode($result);
             mysqli_close($conn);
         }
+    }  else{
+        $result['success']='0';
+        echo json_encode($result);
     }
 ?>
