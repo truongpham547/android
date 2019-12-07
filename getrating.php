@@ -1,6 +1,8 @@
 <?php
 	include "connect.php";
-	
+	require('jwt.php');
+    require('header.php');
+    $token=getBearerToken();
 	class rating{
 		function rating($username,$hoten,$ava,$idreview,$ngaydang,$noidung,$rating)
 		{
