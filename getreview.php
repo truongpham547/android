@@ -50,7 +50,7 @@
 		if(isset($_GET['trending']))
 		{
 			$sql="SELECT id,username,DATE_FORMAT(ngaydang, '%d/%m/%Y') ngaydang,tieude,noidung,diachi,hinhanh,rating 
-				FROM review_table inner join (select idreview,count(*) soluong from rate_table group by idreview) a
+				FROM review_table left join (select idreview,count(*) soluong from rate_table group by idreview) a
 				on id=idreview order by soluong desc,id desc";
 		} 
 		else $sql="SELECT id,username,DATE_FORMAT(ngaydang, '%d/%m/%Y') ngaydang,tieude,noidung,diachi,hinhanh,rating 
