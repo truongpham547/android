@@ -12,6 +12,7 @@
 			$this->idreview=$idreview;
 			$this->ngaydang=$ngaydang;
 			$this->noidung=$noidung;
+			$this->hinhanh=$hinhanh;
 			$this->rating=$rating;
 		}
 	}
