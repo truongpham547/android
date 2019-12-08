@@ -34,8 +34,9 @@
             else
             $sql="INSERT INTO rate_table (username,idreview,ngaydang,noidung,rating,hinhanh) VALUES ('$username','$idreview','$ngaydang','$noidung','$rating','$name_hinhanh')";
     
-            if($conn->query($sql)===TRUE&&file_put_contents($link,base64_decode($hinhanh)))
+            if($conn->query($sql)===TRUE)
             {
+                file_put_contents($link,base64_decode($hinhanh));
                 $result['success']='1';
             
                 $sql="SELECT rating FROM review_table WHERE id='$idreview'";
