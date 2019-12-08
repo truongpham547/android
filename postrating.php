@@ -23,7 +23,6 @@
             if($hinhanh==null) $name_hinhanh=null; 
             else $name_hinhanh=$username.''.$idreview.'.jpg';
             $link='hinhanh/'.$name_hinhanh;
-            $name_hinhanh="abc";
             $ngaydang=date('Y-m-d H:i:s');
             require_once 'connect.php';
             
