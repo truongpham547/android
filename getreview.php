@@ -28,7 +28,7 @@
         $row=mysqli_fetch_assoc($response);
         if($row)
         {
-			if(isset($_GET['area'])) $area="TP. HCM";
+			if(!isset($_GET['area'])) $area="TP. HCM";
 			else $area=$_GET['area'];
 			if($area!="TP. HCM") $area=$area.", TP. HCM";
             if(isset($_GET['username'])) 
