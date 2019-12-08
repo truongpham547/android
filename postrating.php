@@ -18,6 +18,9 @@
             $idreview=$_POST['idreview'];
             $noidung=$_POST['noidung'];
             $rating=$_POST['rating'];
+            $hinhanh=$_POST['hinhanh'];
+            $name_hinhanh=$username.$idreview.'.jpg';
+            $link='hinhanh/'.$name_hinhanh;
             $ngaydang=date('Y-m-d H:i:s');
             require_once 'connect.php';
             
@@ -26,11 +29,11 @@
             $row=mysqli_fetch_assoc($response);
             
             if($row)
-                $sql="UPDATE rate_table set ngaydang='$ngaydang',noidung='$noidung',rating='$rating' where username='$username' and idreview='$idreview'";
+                $sql="UPDATE rate_table set ngaydang='$ngaydang',noidung='$noidung',rating='$rating',hinhanh='$hinhanh' where username='$username' and idreview='$idreview'";
             else
-            $sql="INSERT INTO rate_table (username,idreview,ngaydang,noidung,rating) VALUES ('$username','$idreview','$ngaydang','$noidung','$rating')";
+            $sql="INSERT INTO rate_table (username,idreview,ngaydang,noidung,rating,hinhanh) VALUES ('$username','$idreview','$ngaydang','$noidung','$rating','$hinhanh')";
     
-            if($conn->query($sql)===TRUE)
+            if($conn->query($sql)===TRUE&&file_put_contents($link,base64_decode($hinhanh))
             {
                 $result['success']='1';
             
