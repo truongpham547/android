@@ -36,6 +36,7 @@
     
             if($conn->query($sql)===TRUE)
             {
+                if($hinhanh!=null)
                 file_put_contents($link,base64_decode($hinhanh));
                 $result['success']='1';
             

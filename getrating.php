@@ -4,7 +4,7 @@
     require('header.php');
     $token=getBearerToken();
 	class rating{
-		function rating($username,$hoten,$ava,$idreview,$ngaydang,$noidung,$rating)
+		function rating($username,$hoten,$ava,$idreview,$ngaydang,$noidung,$hinhanh,$rating)
 		{
 			$this->username=$username;
 			$this->hoten=$hoten;
