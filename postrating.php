@@ -18,10 +18,12 @@
             $idreview=$_POST['idreview'];
             $noidung=$_POST['noidung'];
             $rating=$_POST['rating'];
-            $hinhanh=$_POST['hinhanh'];
+            if(isset($_POST['hinhanh'])) $hinhanh=$_POST['hinhanh'];
+            else  $hinhanh=null;
             if($hinhanh==null) $name_hinhanh=null; 
-            else $name_hinhanh=$username.$idreview.'.jpg';
+            else $name_hinhanh=$username.''.$idreview.'.jpg';
             $link='hinhanh/'.$name_hinhanh;
+            $name_hinhanh="abc";
             $ngaydang=date('Y-m-d H:i:s');
             require_once 'connect.php';
             
@@ -36,8 +38,7 @@
     
             if($conn->query($sql)===TRUE)
             {
-                if($hinhanh!=null)
-                file_put_contents($link,base64_decode($hinhanh));
+                if($hinhanh!=null) file_put_contents($link,base64_decode($hinhanh));
                 $result['success']='1';
             
                 $sql="SELECT rating FROM review_table WHERE id='$idreview'";
