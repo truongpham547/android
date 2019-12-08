@@ -23,12 +23,12 @@
             $auth=JWT::decode($token, "truong pham", true);
         } catch(Exception $e){}
         $sql="SELECT* FROM user_table WHERE username='$auth'";
-        $response=  $response=$conn->query($sql);;
+        $response=$conn->query($sql);
         $row=mysqli_fetch_assoc($response);
         if($row)
         {
 			$id=$_GET['id'];
-			$sql="select user_table.username,hoten,ava,rate_table.idreview,DATE_FORMAT(ngaydang, '%d/%m/%Y') ngaydang,rate_table.noidung,rate_table.rating from rate_table INNER JOIN user_table on rate_table.username=user_table.username where idreview='$id' order by ngaydang desc";
+			$sql="select user_table.username,hoten,ava,rate_table.idreview,DATE_FORMAT(ngaydang, '%d/%m/%Y') ngaydang,rate_table.noidung,rate_table.rating,hinhanh from rate_table INNER JOIN user_table on rate_table.username=user_table.username where idreview='$id' order by ngaydang desc";
 			$arrrating=array();
 			$data=mysqli_query($conn,$sql);
 	
@@ -41,6 +41,7 @@
 					$row['idreview'],
 					$row['ngaydang'], 
 					$row['noidung'], 
+					$row['hinhanh'], 
 					$row['rating']));
 			}
 			echo json_encode($arrrating);
